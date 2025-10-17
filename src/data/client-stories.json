@@ -1,0 +1,235 @@
+[
+    {
+        "id": 1,
+        "title": "From an Idea to MVP in Weeks — Not Months",
+        "className": "text-white",
+        "slug": "from-an-idea-to-mvp-in-week-not-months-unoversion-case-study",
+        "featured": true,
+        "isNDA": false,
+        "status": "on-going",
+        "clientName": "Saurav Jha",
+        "clientRole": "Product Manager",
+        "company": "Unoversion",
+        "industry": "Data Platform",
+        "projectType": "Full-stack Development",
+        "duration": "5 Weeks (Ongoing)",
+        "challenge": {
+            "summary": "They had a powerful idea — an AI-driven data platform — but were stuck in endless prototyping. No clear path to MVP. No confidence in the tech.",
+            "narrative": "Saurav and his team had been working on their vision for months: a data platform that could auto-detect and heal broken schemas using AI. But every time they tried to build it, they hit a wall — slow APIs, clunky UI, unreliable AI logic. They were burning cash and time, and worst of all — losing belief in their own timeline. 'We thought this would take six months… maybe even a year,' Saurav said. 'We were stuck in demo mode, not delivery mode.'"
+        },
+        "solution": {
+            "summary": "We didn’t just build the tech — we rebuilt their confidence.",
+            "narrative": "Instead of adding to the complexity, we simplified. We started with: What does the user *actually* need to see? What’s the smallest version that works? In days, we had a working UI (Next.js + ShadCN) that made the AI pipeline feel intuitive — not intimidating. We built Nest.js APIs with Neon Serverless Postgres for real-time SaaS functions, and deployed everything globally on Koyeb for speed and reliability. Most importantly, we integrated custom AI models that didn’t just detect schema issues — they fixed them. And we did it all in weeks — not months."
+        },
+        "result": {
+            "summary": "From doubt to deployment — in 5 weeks.",
+            "narrative": "The MVP launched faster than they dreamed. Their internal team went from skeptical to excited. Investors asked, 'How did you move so fast?' The platform now runs in production, with zero downtime and AI that learns with every use. But the real win? 'You gave us back our momentum,' Saurav told us. 'We’re not just building a product — we’re building a company.'",
+            "metrics": [
+                "MVP launched in 5 weeks (vs. estimated 6+ months)",
+                "Globally deployed: Vercel (frontend), Koyeb (backend)",
+                "AI-powered schema healing with 95% accuracy",
+                "Zero critical bugs post-launch"
+            ]
+        },
+        "quote": "We were able to go from an Idea to MVP in weeks, which we thought would take at least 6 months. You didn’t just build the product — you restored our belief in it.",
+        "clientVoice": "It wasn’t just about speed. It was about trust. We finally had a dev partner who *got it* — not just the code, but the pressure, the timeline, the stakes.",
+        "techStack": [
+            "Next.js",
+            "Nest.js",
+            "ShadCN",
+            "AWS",
+            "Koyeb",
+            "Docker",
+            "PostgreSQL",
+            "Neon Serverless Postgres"
+        ],
+        "tags": [
+            "Full-Stack",
+            "AI Integration",
+            "MVP",
+            "High Availability",
+            "Global Deployment",
+            "Founder-First",
+            "Speed-to-Market"
+        ],
+        "image": "/unoversion-case.png",
+        "theme": "From Doubt to Momentum"
+    },
+    {
+        "id": 2,
+        "title": "From Sketch to Scalable Reality: Building a AI-Automated Future",
+        "featured": true,
+        "isNDA": false,
+        "status": "on-going",
+        "clientName": "Sobha Kumari",
+        "clientRole": "Director",
+        "company": "Hyperwafer",
+        "industry": "Workflow Automation Platform",
+        "projectType": "Branding & Full-Stack Development",
+        "duration": "7 Weeks (Ongoing)",
+        "challenge": {
+            "summary": "They had a bold vision — quantum-level AI-automated workflows — but no identity, no platform, and no path to launch.",
+            "narrative": "Sobha and her team had spent months sketching ideas on paper: a platform where workflows didn’t just automate — they *evolved*. But turning that vision into something tangible felt impossible. They had wireframes, feature lists, and big dreams — but no brand to rally around, no working prototype, and no way to show investors or early users what they were building. 'We were talking in concepts,' Sobha said. 'We needed someone who could speak both developer and dreamer.'"
+        },
+        "solution": {
+            "summary": "We didn’t just build a product — we gave their vision a voice, a face, and a foundation.",
+            "narrative": "We started with identity. What does a 'quantum-level AI-automated workflow' *feel* like? We crafted a brand that was bold, precise, and deeply technical — yet welcoming to developers. The logo, visual identity, and brand voice were built to speak *with* engineers, not at them. Then, we built the platform: a clean, intuitive dashboard (Next.js + Vercel) that lets users chain third-party APIs into intelligent workflows. We added a 'Join the Waitlist' landing page to capture early interest — and behind it, a high-availability backend on AWS and Railwayapp, powered by FastAPI, handling millions of calls with zero lag. Every piece was built to feel inevitable — like it was always meant to exist."
+        },
+        "result": {
+            "summary": "From paper sketches to a live, scalable platform — in 7 weeks.",
+            "narrative": "In just over a month, Hyperwafer went from abstract vision to a working, branded, and scalable platform. The waitlist is growing. The team finally sees their product — not just their idea. And the best part? 'They didn’t treat us like clients,' Sobha said. 'They treated us like co-creators. We got updates, screenshots, even Slack access. It felt like we were in the room — even when we weren’t.'",
+            "metrics": [
+                "Brand identity launched in Week 2",
+                "Waitlist landing page live in Week 3",
+                "Core platform (frontend + backend) shipped in 7 weeks",
+                "Scalable FastAPI backend on AWS + Railwayapp, handling millions of calls/sec",
+                "Seamless 3rd-party API integration framework built-in"
+            ]
+        },
+        "quote": "To see it go from on-paper wireframe and feature list to a platform — all with one partner — it's amazing. They communicate and report every minute detail as if we were not just clients but part of the development process itself.",
+        "clientVoice": "You didn’t just build our product. You believed in our vision when it was still just a sketch. That kind of partnership is rare.",
+        "techStack": [
+            "Next.js",
+            "Vercel",
+            "Railwayapp",
+            "AWS",
+            "Docker",
+            "FastAPI",
+            "PostgreSQL"
+        ],
+        "tags": [
+            "Branding",
+            "Full-Stack",
+            "Developer-First",
+            "High Scalability",
+            "Waitlist Launch",
+            "Founder-Aligned",
+            "AI Automation"
+        ],
+        "image": "/hyperwafer-case.png",
+        "theme": "From Sketch to Scalable Reality"
+    },
+    {
+        "id": 3,
+        "isNDA": false,
+        "hero": "/kartikey-hero.png",
+        "domain": "kartikey.ai",
+        "website": "https://kartikey.ai",
+        "title": "A Brand with Soul, AI with Teeth: Securing the Future with Purpose",
+        "slug": "a-brand-with-soul-ai-with-teeth-securing-the-future-with-purpose-kartikey-ai-case-study",
+        "wireframes": [
+            "/kartikey-wireframe-hero.png",
+            "/kartikey-wireframe.png",
+            "/kartikey-wireframe-2.png"
+        ],
+        "compare": [
+            "/kartikey-wireframe-hero.png",
+            "/kartikey-hero.png"
+        ],
+        "status": "delivered",
+        "clientName": "Billy Singh",
+        "clientRole": "Lead Developer",
+        "company": "Kartikey AI",
+        "industry": "Cybersecurity Platform",
+        "projectType": "Branding & AI Development",
+        "duration": "4 Weeks",
+        "challenge": {
+            "summary": "They had a powerful mission — a culturally rooted, AI-driven cybersecurity platform — but no brand to stand on, and no scalable AI engine to back it.",
+            "narrative": "Billy and his team at Kartikey AI were building something rare: a cybersecurity platform inspired by precision, protection, and cultural depth. But while their vision was strong, their execution was fragmented. The brand felt generic. The AI models were in early research phase — slow, untested, and hard to integrate. And the timeline? Tight. 'We had the story,' Billy said. 'We just didn’t have the structure. Or the speed.' They needed AI that worked, a brand that meant something, and a partner who wouldn’t get lost in the noise."
+        },
+        "solution": {
+            "summary": "We gave them a brand with soul — and AI with teeth.",
+            "narrative": "We started with identity. The name 'Kartikey' carries legacy — a protector, a strategist. We built a visual identity and brand voice that honored that: bold, precise, and deeply intentional. The logo, color system, and tone were designed to resonate — not just look good. Then, we built the AI: custom models from scratch for traffic analysis, log anomaly detection, and resource behavior tracking. We fine-tuned them for accuracy, deployed them on **AWS SageMaker** for scalability, and wrapped them in **Lambda functions** for seamless integration with their Flask API. We even built a 'Join the Waitlist' landing page (Next.js + Vercel) to capture early interest — so they could launch with momentum."
+        },
+        "result": {
+            "summary": "A culturally grounded brand. AI that works. And a platform ready for beta — all in 4 weeks.",
+            "narrative": "In just one month, Kartikey AI went from concept to a fully branded, AI-powered platform with real-time threat analysis. The team finally had a brand they could stand behind — and AI models that didn’t just run, but *understood*. 'It was easy to just tell them a story,' Billy said, 'and they got back with the product.' No back-and-forth. No confusion. Just clarity, speed, and deep technical execution. The waitlist is growing. The backend is stable. And the AI? It’s already catching threats no one saw coming.",
+            "metrics": [
+                "Brand identity launched in Week 1",
+                "4 custom AI models trained and deployed from scratch",
+                "Lambda + SageMaker integration with Flask API (zero downtime)",
+                "Landing page live in 72 hours, capturing 500+ waitlist signups in first week",
+                "Scalable AI pipeline handling 10K+ events/sec in testing"
+            ]
+        },
+        "quote": "Very thorough on the timeline and tech stack, was easy to just tell them a story and they got back with the product.",
+        "clientVoice": "You didn’t ask for a spec doc. You asked for the story — and then you built it. That’s not common. That’s rare.",
+        "techStack": [
+            "Next.js",
+            "Vercel",
+            "AWS",
+            "Docker",
+            "FlaskAPI",
+            "Snowflake Data",
+            "AWS SageMaker",
+            "Lambda",
+            "Python"
+        ],
+        "tags": [
+            "AI Development",
+            "Branding",
+            "Cybersecurity",
+            "Cultural Identity",
+            "SageMaker",
+            "Fast Delivery",
+            "Founder-First",
+            "Scalable AI"
+        ],
+        "image": "/kartikey-card.png",
+        "theme": "From Cultural Vision to AI-Powered Reality"
+    },
+    {
+        "id": 4,
+        "isNDA": false,
+        "className": "md:col-span-2",
+        "title": "Giving a Think Tank Its Digital Voice — Without the Tech Burden",
+        "long": true,
+        "status": "delivered",
+        "clientName": "Mithilesh Kumar",
+        "clientRole": "Founder",
+        "company": "Bharatsaga Foundation",
+        "industry": "NGO Think Tank",
+        "projectType": "Web Development & CMS Implementation",
+        "duration": "3 Weeks",
+        "challenge": {
+            "summary": "They had a powerful vision for India’s cultural and social future — but no digital home to share it. And no way for non-tech team members to contribute.",
+            "narrative": "Mithilesh started Bharatsaga Foundation to spark thoughtful dialogue on India’s development, heritage, and values. But their old WordPress site was clunky, slow, and hard to update. Publishing a single article required tech help. No comments. No engagement. No growth. 'We’re a think tank,' Mithilesh said, 'but our website felt like a graveyard.' They needed a platform that reflected their vision — and one that his team, most of whom weren’t tech-savvy, could actually use."
+        },
+        "solution": {
+            "summary": "We didn’t just build a website — we built a living platform for ideas.",
+            "narrative": "We started with identity. We crafted a visual language that felt grounded, respectful, and modern — one that honored the depth of their mission. Then, we built a clean, fast, and engaging website using Next.js and Vercel — where every article breathes. But the real win? We replaced their old WordPress setup with **Contentful**, a headless CMS that lets non-technical team members publish content in minutes — no developer needed. We added comment sections for dialogue, a newsletter sign-up powered by **Resend & Omnisend**, and seamless content migration from their old site. The entire platform was built to be **owned by the team — not locked behind tech debt**."
+        },
+        "result": {
+            "summary": "From digital silence to vibrant conversation — in just 3 weeks.",
+            "narrative": "In less than a month, Bharatsaga Foundation went from a forgotten WordPress site to a dynamic, easy-to-manage platform where ideas could grow. Team members now publish articles themselves. Readers engage with comments. Subscribers get updates. And Mithilesh? He finally has a digital voice that matches his vision. 'Coming from a non-tech background,' he said, 'it was fresh to see we could rest our tech burden on a trusted set of people.' That trust? It’s the real win.",
+            "metrics": [
+                "Website launched in 3 weeks",
+                "Full content migration from WordPress to Contentful",
+                "Non-technical team members publishing independently",
+                "Comment section live — sparking real dialogue",
+                "Newsletter sign-ups growing at 15% week-on-week",
+                "90% faster load time vs. old site"
+            ]
+        },
+        "quote": "Coming from a non-tech background, it was fresh to see we can rest our tech burden on a trusted set of people.",
+        "clientVoice": "You didn’t make us learn tech. You made tech work for us. That’s what we needed.",
+        "techStack": [
+            "Next.js",
+            "Vercel",
+            "Contentful",
+            "Omnisend",
+            "Resend"
+        ],
+        "tags": [
+            "Non-Profit",
+            "Headless CMS",
+            "Content Migration",
+            "Founder-First",
+            "Easy Publishing",
+            "Mission-Driven",
+            "Fast Delivery"
+        ],
+        "image": "/bharatsaga-case.png",
+        "theme": "From Vision to Voice — A Platform for Ideas"
+    }
+]
