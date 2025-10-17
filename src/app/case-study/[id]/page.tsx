@@ -9,6 +9,10 @@ import Card from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
+export async function generateStaticParams() {
+    return Stories.map((item) => item.id)
+}
+
 export default async function Page({
     params,
 }: {
