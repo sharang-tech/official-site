@@ -10,7 +10,7 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
 export async function generateStaticParams() {
-    return Stories.map((item) => item.id)
+    return [{ id: '1' }, { id: '2' }, { id: '3' }, { id: '4' }]
 }
 
 export default async function Page({
