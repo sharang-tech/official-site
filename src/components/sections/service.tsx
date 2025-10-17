@@ -1,14 +1,11 @@
 import { cn } from "@/lib/utils";
 import { FunctionComponent } from "react";
-import { ArrowUpRight, } from "lucide-react";
 import Image from "next/image";
-import Link from "next/link";
 import { TextLoop } from "../ui/text-loop";
 import {
     Carousel,
     CarouselContent,
     CarouselNavigation,
-    CarouselItem,
 } from '@/components/ui/carousel';
 import Card from "../ui/card";
 

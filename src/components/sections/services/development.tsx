@@ -4,8 +4,6 @@ import Card from "@/components/ui/card";
 import { InfiniteSlider } from "@/components/ui/infinite-slider";
 import { cn } from "@/lib/utils";
 import { Icon } from "@iconify/react/dist/iconify.js";
-import { ArrowRight } from "lucide-react";
-import Link from "next/link";
 import { FunctionComponent, useEffect, useRef } from "react";
 
 interface DevelopmentProps {

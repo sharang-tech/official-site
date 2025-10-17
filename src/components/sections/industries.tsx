@@ -1,10 +1,5 @@
 import { cn } from "@/lib/utils";
 import { FunctionComponent } from "react";
-import Link from "next/link";
-import Image from "next/image";
-import { Button } from "../ui/button";
-import { Icon } from "@iconify/react/dist/iconify.js";
-import { Eye, Globe, MoveRight } from "lucide-react";
 
 interface IndustriesProps {
     className?: string

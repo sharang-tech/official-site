@@ -1,7 +1,6 @@
 import Stories from "@/data/client-stories.json"
 import { Icon } from "@iconify/react/dist/iconify.js";
 import Image from "next/image";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { ArrowUpRight, Quote } from "lucide-react";
 import { Safari } from "@/components/magicui/safari";
 import { InfiniteSlider } from "@/components/ui/infinite-slider";

@@ -1,7 +1,7 @@
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
 import { Icon } from "@iconify/react/dist/iconify.js";
-import { MoveRight, ArrowUpRight, Shirt, ChartArea, ChartBar, ChartBarBig, ChartNetwork, AlertCircle } from "lucide-react";
+import { MoveRight, ArrowUpRight, Shirt, ChartArea, ChartBar, ChartNetwork } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 

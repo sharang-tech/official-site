@@ -1,12 +1,10 @@
 import { cn } from "@/lib/utils";
 import { FunctionComponent, } from "react";
 import { Button } from "../../ui/button";
-import { ArrowUpRight, Globe, Quote, } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { TextLoop } from "../../ui/text-loop";
 import { InfiniteSlider } from "@/components/ui/infinite-slider";
-import { Icon } from "@iconify/react/dist/iconify.js";
 
 interface HeroProps {
     className?: string
@@ -56,9 +54,6 @@ const Hero: FunctionComponent<HeroProps> = ({ className }) => {
         icon: '/stackgen.png',
         name: 'Stack Gen',
         desc: 'CLI tool to generate boilerplate code for popular frameworks, highly customizable.',
-    }]
-    const caseStudies = [{
-
     }]
     return (<>
         <section className={cn("w-full", className)}>
