@@ -8,23 +8,22 @@ import { Compare } from "@/components/ui/compare";
 import Card from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import type { Metadata } from 'next'
+import { Metadata } from "next";
 
 export async function generateStaticParams() {
     return [{ id: '1' }, { id: '2' }, { id: '3' }, { id: '4' }]
 }
 
-export async function generateMetadata(
-    { params }: { params: { id: string } }
-): Promise<Metadata> {
+type CaseStudyParams = { id: string };
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const generateMetadata: any = async ({ params }: { params: CaseStudyParams }) => {
     const currentStory = Stories.find((v) => v.id === Number(params.id));
-
     return {
         title: currentStory
             ? `${currentStory.title} | Client Story — Sharang Tech Labs`
             : "Client Story — Sharang Tech Labs",
-    };
-}
+    } as Metadata;
+};
 
 export default async function Page({
     params,
