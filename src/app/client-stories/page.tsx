@@ -1,7 +1,12 @@
 import ClientStoriesGrid from "@/components/sections/client-stories-grid";
 import Clients from "@/components/sections/clients";
 import { MoveRight } from "lucide-react";
+import { Metadata } from "next";
 import Link from "next/link";
+
+export const metadata: Metadata = {
+    title: "Client Stories — Sharang Tech Labs",
+};
 
 export default function ClientStories() {
     return (

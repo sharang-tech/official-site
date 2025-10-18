@@ -8,8 +8,13 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import Image from "next/image";
 import Link from "next/link";
 import { MoveRight } from "lucide-react";
+import { Metadata } from "next";
 
-export default function Home() {
+export const metadata: Metadata = {
+    title: "Services — Sharang Tech Labs",
+};
+
+export default function Services() {
     const FAQs = [
         {
             question: "What services do you offer?",

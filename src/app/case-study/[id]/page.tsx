@@ -8,9 +8,21 @@ import { Compare } from "@/components/ui/compare";
 import Card from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import type { Metadata } from 'next'
 
 export async function generateStaticParams() {
     return [{ id: '1' }, { id: '2' }, { id: '3' }, { id: '4' }]
+}
+
+export async function generateMetadata(
+    params: Promise<{ id: string }>
+): Promise<Metadata> {
+    // read route params
+    const { id } = await params
+    const currentStory = Stories.find((v) => v.id === Number(id))
+    return {
+        title: `${currentStory?.title} | Client Story — Sharang Tech Labs`,
+    }
 }
 
 export default async function Page({
