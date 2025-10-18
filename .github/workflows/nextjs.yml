@@ -71,7 +71,7 @@ jobs:
       - name: 🗺️ Generate sitemap & robots.txt
         run: |
           echo "🧭 Generating sitemap.xml and robots.txt..."
-          ${{ steps.detect-package-manager.outputs.runner }} ts-node scripts/generate-sitemap.ts
+          ${{ steps.detect-package-manager.outputs.manager }} scripts/dist/generate-sitemap.js
         env:
           BASE_URL: https://sharang.tech
           OUT_DIR: out
