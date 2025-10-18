@@ -15,14 +15,15 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata(
-    params: Promise<{ id: string }>
+    { params }: { params: { id: string } }
 ): Promise<Metadata> {
-    // read route params
-    const { id } = await params
-    const currentStory = Stories.find((v) => v.id === Number(id))
+    const currentStory = Stories.find((v) => v.id === Number(params.id));
+
     return {
-        title: `${currentStory?.title} | Client Story — Sharang Tech Labs`,
-    }
+        title: currentStory
+            ? `${currentStory.title} | Client Story — Sharang Tech Labs`
+            : "Client Story — Sharang Tech Labs",
+    };
 }
 
 export default async function Page({
