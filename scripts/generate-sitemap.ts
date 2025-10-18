@@ -1,95 +1,66 @@
 // scripts/generate-sitemap.ts
-import fs from "fs";
-import path from "path";
+import * as fs from "node:fs";
+import * as path from "node:path";
 
-/**
- * CONFIGURATION
- */
-const BASE_URL = process.env.BASE_URL || "https://sharang.tech";
-const OUT_DIR = process.env.OUT_DIR || "out";
-const POSSIBLE_ROUTE_DIRS = ["src/app", "src/pages", "app", "pages"];
+const baseUrl = process.env.BASE_URL || "https://sharang.tech";
+const outDir = process.env.OUT_DIR || "out";
+
+// Possible routes to scan
+const possibleRoutes = ["src/app", "src/pages", "app", "pages"];
+
+const routeDir = possibleRoutes.find((dir) => fs.existsSync(dir));
+if (!routeDir) {
+  console.error("❌ Could not find app/pages folder in src or root.");
+  process.exit(1);
+}
+
+console.log(`🔍 Scanning routes from: ${routeDir}/`);
 
 const IGNORED = [
   "api",
   "_middleware",
   "_app",
+  "service",
   "_document",
   "layout.tsx",
   "template.tsx",
   "error.tsx",
-  "service"
 ];
 
-/**
- * STEP 1 — Detect route source directory
- */
-const routeDir = POSSIBLE_ROUTE_DIRS.find((dir) => fs.existsSync(dir));
-if (!routeDir) {
-  console.error("❌ Could not find app/pages folder in src or root.");
-  process.exit(1);
-}
-console.log(`🔍 Scanning routes from: ${routeDir}/`);
-
-/**
- * STEP 2 — Recursive route discovery
- */
 function walkRoutes(dir: string, parentPath = ""): string[] {
   const routes: string[] = [];
 
   for (const entry of fs.readdirSync(dir)) {
-    if (IGNORED.includes(entry)) continue;
-
     const fullPath = path.join(dir, entry);
     const stat = fs.statSync(fullPath);
 
+    if (IGNORED.includes(entry)) continue;
+
     if (stat.isDirectory()) {
       routes.push(...walkRoutes(fullPath, path.join(parentPath, entry)));
-      continue;
-    }
-
-    // Detect valid page files
-    const isPageFile =
+    } else if (
       entry === "page.tsx" ||
       entry === "page.jsx" ||
-      entry === "index.tsx" ||
-      entry === "index.jsx" ||
       entry.endsWith(".html") ||
-      (!routeDir?.includes("app") &&
-        (entry.endsWith(".tsx") || entry.endsWith(".js")));
-
-    if (!isPageFile) continue;
-
-    // Handle path formatting
-    let route = parentPath.replace(/\\/g, "/");
-
-    // Remove trailing /page
-    route = route.replace(/\/page$/, "");
-
-    // Remove trailing /index
-    route = route.replace(/\/index$/, "");
-
-    // Skip dynamic routes like [slug], [id]
-    if (/\[.*?\]/.test(route)) continue;
-
-    routes.push(route);
+      (!routeDir?.includes("app") && entry.endsWith(".tsx")) ||
+      (!routeDir?.includes("app") && entry.endsWith(".js"))
+    ) {
+      const route = parentPath.replace(/\\/g, "/").replace(/\/page$/, "");
+      routes.push(route);
+    }
   }
 
   return routes;
 }
 
-/**
- * STEP 3 — Helpers for sitemap metadata
- */
 function normalizeRoute(route: string): string {
   return route === "/" || route === "" ? "" : route.replace(/\/$/, "");
 }
 
 function getPriority(path: string): string {
   if (path === "") return "1.0";
-  const depth = path.split("/").length - 1;
-  if (depth === 1) return "0.8";
-  if (depth === 2) return "0.6";
-  return "0.5";
+  const depth = path.split("/").length;
+  return depth <= 1 ? "0.8" : "0.5";
 }
 
 function getChangeFreq(path: string): string {
@@ -98,61 +69,51 @@ function getChangeFreq(path: string): string {
   return "monthly";
 }
 
-function getLastModified(route: string): string {
+function getLastModFromOutFile(route: string): string {
   const htmlFile = route === "" ? "index.html" : `${route}/index.html`;
-  const outPath = path.join(OUT_DIR, htmlFile);
+  const outPath = path.join(outDir, htmlFile);
   if (fs.existsSync(outPath)) {
     return fs.statSync(outPath).mtime.toISOString();
   }
-  // fallback: if build not exported yet
   return new Date().toISOString();
 }
 
-/**
- * STEP 4 — Collect routes
- */
 const rawRoutes = walkRoutes(routeDir);
-const routes = [...new Set(rawRoutes.map(normalizeRoute))];
+const routes = Array.from(new Set(rawRoutes.map(normalizeRoute)));
 
-/**
- * STEP 5 — Build XML sitemap content
- */
 const urls = routes.map((route) => {
-  const loc = `${BASE_URL}/${route}`.replace(/\/+$/, "");
-  return `
-  <url>
-    <loc>${loc}</loc>
-    <lastmod>${getLastModified(route)}</lastmod>
-    <changefreq>${getChangeFreq(route)}</changefreq>
-    <priority>${getPriority(route)}</priority>
-  </url>`;
+  const loc = `${baseUrl}/${route}`.replace(/\/+$/, "");
+  return {
+    loc,
+    lastmod: getLastModFromOutFile(route),
+    priority: getPriority(route),
+    changefreq: getChangeFreq(route),
+  };
 });
 
-const sitemapXML = `<?xml version="1.0" encoding="UTF-8"?>
-<urlset 
-  xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-  xmlns:xhtml="http://www.w3.org/1999/xhtml">
-${urls.join("\n")}
-</urlset>
-`;
+const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${urls
+    .map(
+      (u) => `<url>
+  <loc>${u.loc}</loc>
+  <lastmod>${u.lastmod}</lastmod>
+  <changefreq>${u.changefreq}</changefreq>
+  <priority>${u.priority}</priority>
+</url>`
+    )
+    .join("\n")}
+</urlset>`;
 
-fs.mkdirSync(OUT_DIR, { recursive: true });
-fs.writeFileSync(path.join(OUT_DIR, "sitemap.xml"), sitemapXML.trim());
+fs.mkdirSync(outDir, { recursive: true });
+fs.writeFileSync(path.join(outDir, "sitemap.xml"), sitemap);
 console.log("✅ sitemap.xml generated");
 
-/**
- * STEP 6 — Generate robots.txt
- */
-const robotsTXT = `User-agent: *
+const robots = `User-agent: *
 Allow: /
 
-Sitemap: ${BASE_URL}/sitemap.xml
+Sitemap: ${baseUrl}/sitemap.xml
 `;
 
-fs.writeFileSync(path.join(OUT_DIR, "robots.txt"), robotsTXT);
+fs.writeFileSync(path.join(outDir, "robots.txt"), robots);
 console.log("✅ robots.txt generated");
-
-/**
- * Done!
- */
-console.log(`✨ Sitemap and robots.txt created successfully in "${OUT_DIR}"`);
