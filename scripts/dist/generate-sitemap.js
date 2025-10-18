@@ -3,9 +3,18 @@ Object.defineProperty(exports, "__esModule", { value: true });
 // scripts/generate-sitemap.ts
 var fs = require("node:fs");
 var path = require("node:path");
+// Base URL and output folder (use env in CI)
 var baseUrl = process.env.BASE_URL || "https://sharang.tech";
 var outDir = process.env.OUT_DIR || "out";
-// Possible routes to scan
+// === Example dynamic data ===
+// Replace this with your real Stories data source
+var Stories = [
+    { id: 1 },
+    { id: 2 },
+    { id: 3 },
+    { id: 4 },
+];
+// Folders to scan for pages
 var possibleRoutes = ["src/app", "src/pages", "app", "pages"];
 var routeDir = possibleRoutes.find(function (dir) { return fs.existsSync(dir); });
 if (!routeDir) {
@@ -17,12 +26,12 @@ var IGNORED = [
     "api",
     "_middleware",
     "_app",
-    "service",
     "_document",
     "layout.tsx",
     "template.tsx",
     "error.tsx",
 ];
+// Recursively walk pages/app folder
 function walkRoutes(dir, parentPath) {
     if (parentPath === void 0) { parentPath = ""; }
     var routes = [];
@@ -46,22 +55,32 @@ function walkRoutes(dir, parentPath) {
     }
     return routes;
 }
+// Normalize route paths
 function normalizeRoute(route) {
     return route === "/" || route === "" ? "" : route.replace(/\/$/, "");
 }
-function getPriority(path) {
-    if (path === "")
-        return "1.0";
-    var depth = path.split("/").length;
-    return depth <= 1 ? "0.8" : "0.5";
+// Expand dynamic routes (replace [id] with real values)
+function expandDynamicRoute(route) {
+    if (route.includes("[id]")) {
+        return Stories.map(function (s) { return route.replace("[id]", String(s.id)); });
+    }
+    return [route];
 }
-function getChangeFreq(path) {
-    if (path === "")
+// Priority for sitemap
+function getPriority(route) {
+    if (!route || route === "")
+        return "1.0";
+    return route.split("/").length <= 1 ? "0.8" : "0.5";
+}
+// Change frequency for sitemap
+function getChangeFreq(route) {
+    if (!route || route === "")
         return "weekly";
-    if (path.includes("blog"))
+    if (route.includes("blog"))
         return "monthly";
     return "monthly";
 }
+// Last modified date from out folder
 function getLastModFromOutFile(route) {
     var htmlFile = route === "" ? "index.html" : "".concat(route, "/index.html");
     var outPath = path.join(outDir, htmlFile);
@@ -70,23 +89,29 @@ function getLastModFromOutFile(route) {
     }
     return new Date().toISOString();
 }
+// Walk routes and normalize
 var rawRoutes = walkRoutes(routeDir);
-var routes = Array.from(new Set(rawRoutes.map(normalizeRoute)));
-var urls = routes.map(function (route) {
-    var loc = "".concat(baseUrl, "/").concat(route).replace(/\/+$/, "");
-    return {
-        loc: loc,
-        lastmod: getLastModFromOutFile(route),
-        priority: getPriority(route),
-        changefreq: getChangeFreq(route),
-    };
+var normalizedRoutes = Array.from(new Set(rawRoutes.map(normalizeRoute)));
+// Expand dynamic routes
+var finalRoutes = [];
+normalizedRoutes.forEach(function (route) {
+    finalRoutes.push.apply(finalRoutes, expandDynamicRoute(route));
 });
+// Generate sitemap entries
+var urls = finalRoutes.map(function (route) { return ({
+    loc: "".concat(baseUrl, "/").concat(route).replace(/\/+$/, ""),
+    lastmod: getLastModFromOutFile(route),
+    priority: getPriority(route),
+    changefreq: getChangeFreq(route),
+}); });
+// Write sitemap.xml
 var sitemap = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\n".concat(urls
     .map(function (u) { return "<url>\n  <loc>".concat(u.loc, "</loc>\n  <lastmod>").concat(u.lastmod, "</lastmod>\n  <changefreq>").concat(u.changefreq, "</changefreq>\n  <priority>").concat(u.priority, "</priority>\n</url>"); })
     .join("\n"), "\n</urlset>");
 fs.mkdirSync(outDir, { recursive: true });
 fs.writeFileSync(path.join(outDir, "sitemap.xml"), sitemap);
 console.log("✅ sitemap.xml generated");
+// Write robots.txt
 var robots = "User-agent: *\nAllow: /\n\nSitemap: ".concat(baseUrl, "/sitemap.xml\n");
 fs.writeFileSync(path.join(outDir, "robots.txt"), robots);
 console.log("✅ robots.txt generated");

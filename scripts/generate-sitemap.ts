@@ -2,12 +2,21 @@
 import * as fs from "node:fs";
 import * as path from "node:path";
 
+// Base URL and output folder (use env in CI)
 const baseUrl = process.env.BASE_URL || "https://sharang.tech";
 const outDir = process.env.OUT_DIR || "out";
 
-// Possible routes to scan
-const possibleRoutes = ["src/app", "src/pages", "app", "pages"];
+// === Example dynamic data ===
+// Replace this with your real Stories data source
+const Stories = [
+  { id: 1 },
+  { id: 2 },
+  { id: 3 },
+  { id: 4 },
+];
 
+// Folders to scan for pages
+const possibleRoutes = ["src/app", "src/pages", "app", "pages"];
 const routeDir = possibleRoutes.find((dir) => fs.existsSync(dir));
 if (!routeDir) {
   console.error("❌ Could not find app/pages folder in src or root.");
@@ -20,13 +29,13 @@ const IGNORED = [
   "api",
   "_middleware",
   "_app",
-  "service",
   "_document",
   "layout.tsx",
   "template.tsx",
   "error.tsx",
 ];
 
+// Recursively walk pages/app folder
 function walkRoutes(dir: string, parentPath = ""): string[] {
   const routes: string[] = [];
 
@@ -53,22 +62,33 @@ function walkRoutes(dir: string, parentPath = ""): string[] {
   return routes;
 }
 
+// Normalize route paths
 function normalizeRoute(route: string): string {
   return route === "/" || route === "" ? "" : route.replace(/\/$/, "");
 }
 
-function getPriority(path: string): string {
-  if (path === "") return "1.0";
-  const depth = path.split("/").length;
-  return depth <= 1 ? "0.8" : "0.5";
+// Expand dynamic routes (replace [id] with real values)
+function expandDynamicRoute(route: string): string[] {
+  if (route.includes("[id]")) {
+    return Stories.map((s) => route.replace("[id]", String(s.id)));
+  }
+  return [route];
 }
 
-function getChangeFreq(path: string): string {
-  if (path === "") return "weekly";
-  if (path.includes("blog")) return "monthly";
+// Priority for sitemap
+function getPriority(route: string): string {
+  if (!route || route === "") return "1.0";
+  return route.split("/").length <= 1 ? "0.8" : "0.5";
+}
+
+// Change frequency for sitemap
+function getChangeFreq(route: string): string {
+  if (!route || route === "") return "weekly";
+  if (route.includes("blog")) return "monthly";
   return "monthly";
 }
 
+// Last modified date from out folder
 function getLastModFromOutFile(route: string): string {
   const htmlFile = route === "" ? "index.html" : `${route}/index.html`;
   const outPath = path.join(outDir, htmlFile);
@@ -78,19 +98,25 @@ function getLastModFromOutFile(route: string): string {
   return new Date().toISOString();
 }
 
+// Walk routes and normalize
 const rawRoutes = walkRoutes(routeDir);
-const routes = Array.from(new Set(rawRoutes.map(normalizeRoute)));
+const normalizedRoutes = Array.from(new Set(rawRoutes.map(normalizeRoute)));
 
-const urls = routes.map((route) => {
-  const loc = `${baseUrl}/${route}`.replace(/\/+$/, "");
-  return {
-    loc,
-    lastmod: getLastModFromOutFile(route),
-    priority: getPriority(route),
-    changefreq: getChangeFreq(route),
-  };
+// Expand dynamic routes
+const finalRoutes: string[] = [];
+normalizedRoutes.forEach((route) => {
+  finalRoutes.push(...expandDynamicRoute(route));
 });
 
+// Generate sitemap entries
+const urls = finalRoutes.map((route) => ({
+  loc: `${baseUrl}/${route}`.replace(/\/+$/, ""),
+  lastmod: getLastModFromOutFile(route),
+  priority: getPriority(route),
+  changefreq: getChangeFreq(route),
+}));
+
+// Write sitemap.xml
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${urls
@@ -109,6 +135,7 @@ fs.mkdirSync(outDir, { recursive: true });
 fs.writeFileSync(path.join(outDir, "sitemap.xml"), sitemap);
 console.log("✅ sitemap.xml generated");
 
+// Write robots.txt
 const robots = `User-agent: *
 Allow: /
 
